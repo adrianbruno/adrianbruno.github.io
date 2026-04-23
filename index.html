@@ -25,7 +25,9 @@
       color: var(--text);
       background: linear-gradient(120deg, var(--bg1), var(--bg2), var(--bg3));
       background-size: 400% 400%;
-      animation: bgMove 25s ease infinite;
+      /* Animacion */
+      /* animation: bgMove 25s ease infinite; */
+      animation: bgMove 5s linear infinite;
     }
 
 
@@ -77,8 +79,11 @@
     .app-card h3 {
       margin: 1rem 0 0.5rem;
     }
-
-
+    .app-icon img {
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+    }
     .details {
       max-width: 900px;
       margin: 3rem auto;
@@ -121,12 +126,12 @@
 
 <section class="carousel">
   <div class="app-card" onclick="showDetails('linedance')">
-    <div class="app-icon">🎵</div>
+    <div class="app-icon">icons/linedance.png</div>
     <h3>LineDance App</h3>
     <p>Música y ritmo</p>
   </div>
   <div class="app-card" onclick="showDetails('carrusel')">
-    <div class="app-icon">🎠</div>
+    <div class="app-icon">icons/carrusel.png</div>
     <h3>Carrusel AB</h3>
     <p>Subi, acomoda y publica, facil</p>
   </div>
