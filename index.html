@@ -12,7 +12,6 @@
       --bg2: #eef2ff;
       --bg3: #f0fdf4;
       --card: #ffffff;
-      --primary: #6366f1;
       --text: #1f2937;
       --muted: #6b7280;
       --radius: 20px;
@@ -36,7 +35,6 @@
       background: linear-gradient(120deg, var(--bg1), var(--bg2), var(--bg3));
       background-size: 400% 400%;
       animation: bgMove 25s ease infinite;
-      transition: background 0.6s ease, color 0.6s ease;
     }
 
     @keyframes bgMove {
@@ -50,8 +48,7 @@
       padding: 3rem 1rem 2rem;
     }
 
-    header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
-    header p { color: var(--muted); }
+    header h1 { font-size: 2.5rem; }
 
     .toggle {
       position: fixed;
@@ -63,12 +60,11 @@
       cursor: pointer;
       background: var(--card);
       color: var(--text);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-      font-size: 0.9rem;
     }
 
-    /* CARRUSEL */
+    /* CARRUSEL 3D */
     .carousel-wrapper {
+      perspective: 1200px;
       display: flex;
       justify-content: center;
     }
@@ -76,15 +72,9 @@
     .carousel {
       display: flex;
       gap: 1.5rem;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      scroll-behavior: smooth;
-      padding: 2rem 0;
-      max-width: 1000px;
-      scroll-padding: 0 calc(50% - 130px);
+      overflow: hidden;
+      padding: 3rem 0;
     }
-
-    .carousel::-webkit-scrollbar { display: none; }
 
     .app-card {
       min-width: 260px;
@@ -93,60 +83,43 @@
       border-radius: var(--radius);
       padding: 1.5rem;
       text-align: center;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-      scroll-snap-align: center;
-      cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
-      opacity: 0.5;
-      transform: scale(0.9);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      transition: transform 0.6s ease, opacity 0.6s ease;
+      opacity: 0.3;
+      transform: scale(0.7) rotateY(30deg);
     }
 
-    .app-card.active {
+    .app-card.center {
+      transform: scale(1.1) rotateY(0deg);
       opacity: 1;
-      transform: scale(1);
+      z-index: 3;
     }
 
-    .app-card:hover {
-      transform: scale(1.04) translateY(-6px);
-      box-shadow: 0 25px 45px rgba(0,0,0,0.15);
+    .app-card.left {
+      transform: scale(0.85) rotateY(25deg) translateX(-40px);
+      opacity: 0.6;
     }
 
-    .app-icon {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 1rem;
-      transition: transform 0.3s ease;
+    .app-card.right {
+      transform: scale(0.85) rotateY(-25deg) translateX(40px);
+      opacity: 0.6;
     }
-
-    .app-card:hover .app-icon { transform: scale(1.1); }
 
     .app-icon img {
       width: 64px;
       height: 64px;
-      object-fit: contain;
     }
 
     .details {
       max-width: 900px;
       margin: 3rem auto;
-      background: rgba(255,255,255,0.88);
-      backdrop-filter: blur(6px);
+      background: rgba(255,255,255,0.9);
       border-radius: var(--radius);
       padding: 2.5rem;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-      transition: background 0.6s ease;
     }
 
     body.dark .details { background: rgba(15,23,42,0.85); }
 
-    footer {
-      text-align: center;
-      padding: 2rem 1rem 3rem;
-      color: var(--muted);
-    }
-
-    footer a { color: inherit; }
   </style>
 </head>
 <body>
@@ -160,95 +133,52 @@
 
 <div class="carousel-wrapper">
   <section class="carousel" id="carousel">
-    <div class="app-card active" onclick="showDetails('linedance')">
-      <div class="app-icon"><img src="icons/linedance.png" alt="LineDance App"></div>
+
+    <div class="app-card" onclick="showDetails('linedance')">
+      <div class="app-icon"><img src="icons/linedance.png"></div>
       <h3>LineDance App</h3>
-      <p>Música y ritmo</p>
     </div>
+
     <div class="app-card" onclick="showDetails('carrusel')">
-      <div class="app-icon"><img src="icons/carrusel.png" alt="Carrusel AB"></div>
+      <div class="app-icon"><img src="icons/carrusel.png"></div>
       <h3>Carrusel AB</h3>
-      <p>Subí, acomodá y publicá fácil</p>
     </div>
+
     <div class="app-card" onclick="showDetails('reloj')">
       <div class="app-icon">⏳</div>
-      <h3>Reloj de Arena AB</h3>
-      <p>Gestión del tiempo</p>
+      <h3>Reloj de Arena</h3>
     </div>
+
   </section>
 </div>
 
-<section class="details" id="details">
-  <h2>Seleccioná una aplicación</h2>
-  <p>Hacé click en alguna del carrusel para ver más información.</p>
-</section>
-
-<footer>
-  <p>📧 <a href="mailto:adrianbruno@gmail.com">adrianbruno@gmail.com</a> · 📷 https://instagram.com/adrianbruno_lp</p>
-</footer>
+<section class="details" id="details"></section>
 
 <script>
-  const data = {
-    linedance: {
-      title: 'LineDance App',
-      text: 'Reproductor de música profesional diseñado especialmente para clases y eventos de Line Dance.',
-      link: 'https://adrianbruno.github.io/linedance-app/'
-    },
-    carrusel: {
-      title: 'Carrusel AB',
-      text: 'Dividí una foto en partes perfectas o armá un carrusel con varias fotos.',
-      link: 'https://adrianbruno.github.io/carruselab/'
-    },
-    reloj: {
-      title: 'Reloj de Arena AB',
-      text: 'Herramienta simple para medir el tiempo.',
-      link: 'reloj-arena-ab.html'
-    }
-  };
+  const cards = document.querySelectorAll('.app-card');
+  let index = 0;
 
-  function showDetails(key) {
-    const d = data[key];
-    document.getElementById('details').innerHTML = `
-      <h2>${d.title}</h2>
-      <p>${d.text}</p>
-      <a href="${d.link}">Ver página de la app</a>
-    `;
-    document.getElementById('details').scrollIntoView({ behavior: 'smooth' });
+  function updateCarousel() {
+    cards.forEach((card, i) => {
+      card.classList.remove('left', 'center', 'right');
+
+      if (i === index) card.classList.add('center');
+      else if (i === (index - 1 + cards.length) % cards.length) card.classList.add('left');
+      else if (i === (index + 1) % cards.length) card.classList.add('right');
+    });
   }
+
+  function next() {
+    index = (index + 1) % cards.length;
+    updateCarousel();
+  }
+
+  setInterval(next, 2500);
+  updateCarousel();
 
   function toggleTheme() {
     document.body.classList.toggle('dark');
   }
-
-  const carousel = document.getElementById('carousel');
-  const cards = carousel.querySelectorAll('.app-card');
-  let index = 0;
-  let interval;
-
-  function goTo(indexToGo) {
-    cards.forEach(c => c.classList.remove('active'));
-    cards[indexToGo].classList.add('active');
-
-    cards[indexToGo].scrollIntoView({
-      behavior: 'smooth',
-      inline: 'center'
-    });
-  }
-
-  function startCarousel() {
-    interval = setInterval(() => {
-      index = (index + 1) % cards.length;
-      goTo(index);
-    }, 2500);
-  }
-
-  function stopCarousel() {
-    clearInterval(interval);
-  }
-
-  startCarousel();
-  carousel.addEventListener('mouseenter', stopCarousel);
-  carousel.addEventListener('mouseleave', startCarousel);
 </script>
 
 </body>
