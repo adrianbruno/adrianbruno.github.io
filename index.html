@@ -5,51 +5,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Adrian Bruno – Apps</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --bg1: #f9fafb;
-      --bg2: #eef2ff;
-      --bg3: #f0fdf4;
+      --bg1: #f9fafb;
+      --bg2: #eef2ff;
+      --bg3: #f0fdf4;
       --card: #ffffff;
       --primary: #6366f1;
       --text: #1f2937;
       --muted: #6b7280;
       --radius: 20px;
     }
-    * { box-sizing: border-box; }
 
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
       color: var(--text);
-      background: linear-gradient(120deg, var(--bg1), var(--bg2), var(--bg3));
-      background-size: 400% 400%;
-      /* Animacion */
-      /* animation: bgMove 25s ease infinite; */
-      animation: bgMove 5s linear infinite;
+      background: linear-gradient(120deg, var(--bg1), var(--bg2), var(--bg3));
+      background-size: 400% 400%;
+      animation: bgMove 5s linear infinite; /* luego podés volver a 25s */
     }
 
-
-    @keyframes bgMove {
-      0%   { background-position: 0% 50%; }
-      50%  { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
+    @keyframes bgMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
 
     header {
       text-align: center;
       padding: 3rem 1rem 2rem;
     }
+
     header h1 {
       font-size: 2.5rem;
       margin-bottom: 0.5rem;
     }
+
     header p {
       color: var(--muted);
     }
-
 
     .carousel {
       display: flex;
@@ -58,6 +56,7 @@
       scroll-snap-type: x mandatory;
       padding: 2rem 1.5rem;
     }
+
     .app-card {
       min-width: 260px;
       background: var(--card);
@@ -67,54 +66,65 @@
       box-shadow: 0 10px 25px rgba(0,0,0,0.05);
       scroll-snap-align: center;
       cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
+
     .app-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 18px 35px rgba(0,0,0,0.08);
+      transform: translateY(-6px);
+      box-shadow: 0 18px 35px rgba(0,0,0,0.08);
     }
+
+    /* ICONOS PERFECTAMENTE CENTRADOS */
     .app-icon {
-      font-size: 3rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 1rem;
     }
-    .app-card h3 {
-      margin: 1rem 0 0.5rem;
-    }
+
     .app-icon img {
       width: 64px;
       height: 64px;
       object-fit: contain;
     }
+
+    .app-card h3 {
+      margin: 1rem 0 0.5rem;
+    }
+
     .details {
       max-width: 900px;
       margin: 3rem auto;
-      background: rgba(255,255,255,0.9);
-      backdrop-filter: blur(6px);
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(6px);
       border-radius: var(--radius);
       padding: 2.5rem;
       box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     }
+
     .details h2 { margin-top: 0; }
+
     .details a {
       display: inline-block;
       margin-top: 1rem;
       color: white;
       background: var(--primary);
-      padding: 0.7rem 1.6rem;
+      padding: 0.7rem 1.6rem;
       border-radius: 999px;
       text-decoration: none;
-      transition: background 0.3s ease;
+      transition: background 0.3s ease;
     }
-    .details a:hover {
-      background: #4f46e5;
-    }
 
+    .details a:hover { background: #4f46e5; }
 
     footer {
       text-align: center;
-      padding: 2rem 1rem 3rem;
+      padding: 2rem 1rem 3rem;
       color: var(--muted);
     }
-    footer a { color: inherit; }
+
+    footer a { color: inherit; }
+
   </style>
 </head>
 <body>
@@ -127,20 +137,24 @@
 <section class="carousel">
   <div class="app-card" onclick="showDetails('linedance')">
     <div class="app-icon">
-      <img src="icons/linedance.png" alt="Linedance app">
+      <img src="icons/linedance.png" alt="LineDance App">
     </div>
     <h3>LineDance App</h3>
     <p>Música y ritmo</p>
   </div>
+
   <div class="app-card" onclick="showDetails('carrusel')">
     <div class="app-icon">
       <img src="icons/carrusel.png" alt="Carrusel AB">
     </div>
     <h3>Carrusel AB</h3>
-    <p>Subi, acomoda y publica, facil</p>
+    <p>Subí, acomodá y publicá fácil</p>
   </div>
+
   <div class="app-card" onclick="showDetails('reloj')">
-    <div class="app-icon">⏳</div>
+    <div class="app-icon">
+      <span style="font-size: 2.5rem;">⏳</span>
+    </div>
     <h3>Reloj de Arena AB</h3>
     <p>Gestión del tiempo para juegos de mesa</p>
   </div>
@@ -153,9 +167,9 @@
 
 <footer>
   <p>
-    📧 <a href="mailto:adrianbruno@gmail.com">adrianbruno@gmail.com</a> ·
-    📷 https://instagram.com/adrianbruno_lp
-  </p>
+    📧 <a href="mailto:adrianbruno@gmail.com">adrianbruno@gmail.com</a> ·
+    📷 https://instagram.com/adrianbruno_lp
+  </p>
 </footer>
 
 <script>
@@ -189,3 +203,4 @@
 </script>
 
 </body>
+</html>
