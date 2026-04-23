@@ -1,0 +1,23 @@
+/* ===== FONDO CON GRANO ANIMADO ===== */
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("noise.png");
+  background-repeat: repeat;
+  opacity: 0.06;            /* control de intensidad */
+  pointer-events: none;
+  z-index: -1;
+  animation: grainMove 8s steps(10) infinite;
+}
+
+/* Animación muy sutil de desplazamiento */
+@keyframes grainMove {
+  0%   { transform: translate(0, 0); }
+  20%  { transform: translate(-5%, -5%); }
+  40%  { transform: translate(-10%, 5%); }
+  60%  { transform: translate(5%, -10%); }
+  80%  { transform: translate(10%, 5%); }
+  100% { transform: translate(0, 0); }
+}
