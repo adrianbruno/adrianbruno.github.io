@@ -1,340 +1,182 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Carrusel AB — Carruseles para Instagram</title>
-<meta name="description" content="Creá carruseles profesionales para Instagram en segundos. Dividí fotos, ajustá el encuadre y publicá directo. Gratis para probar.">
-<meta property="og:title" content="Carrusel AB — Carruseles para Instagram">
-<meta property="og:description" content="Creá carruseles profesionales para Instagram en segundos.">
-<meta property="og:image" content="https://adrianbruno.github.io/carruselab/icons/icon-512.png">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="https://adrianbruno.github.io/carruselab/icons/icon-192.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
-<style>
-:root{
-  --bg:#0a0a0a;
-  --bg2:#111;
-  --border:rgba(255,255,255,0.07);
-  --text:#f0f0ee;
-  --text2:#888;
-  --accent:#534AB7;
-  --accent2:#7F77DD;
-  --green:#1D9E75;
-}
-*{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden;}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adrian Bruno – Apps</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg1: #f9fafb;
+      --bg2: #eef2ff;
+      --bg3: #f0fdf4;
+      --card: #ffffff;
+      --primary: #6366f1;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --radius: 20px;
+    }
+    * { box-sizing: border-box; }
 
-/* ── NOISE TEXTURE ── */
-body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");opacity:.4;pointer-events:none;z-index:0;}
 
-/* ── NAV ── */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;background:rgba(10,10,10,0.8);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
-.nav-logo{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;letter-spacing:-.02em;display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);}
-.nav-icon{width:30px;height:30px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;}
-.nav-cta{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:8px 18px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;text-decoration:none;transition:background .2s,transform .15s;}
-.nav-cta:hover{background:#3C3489;transform:scale(1.03);}
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      color: var(--text);
+      background: linear-gradient(120deg, var(--bg1), var(--bg2), var(--bg3));
+      background-size: 400% 400%;
+      animation: bgMove 25s ease infinite;
+    }
 
-/* ── HERO ── */
-.hero{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:100px 24px 60px;position:relative;text-align:center;}
 
-/* Glow blob */
-.hero::after{content:'';position:absolute;top:20%;left:50%;transform:translateX(-50%);width:600px;height:400px;background:radial-gradient(ellipse,rgba(83,74,183,0.15) 0%,transparent 70%);pointer-events:none;z-index:0;}
+    @keyframes bgMove {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
 
-.hero-content{position:relative;z-index:1;max-width:700px;}
 
-.hero-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(83,74,183,0.12);border:1px solid rgba(83,74,183,0.3);border-radius:20px;padding:5px 14px;font-size:12px;color:var(--accent2);font-weight:500;margin-bottom:28px;animation:fadeUp .6s ease both;}
-.hero-badge span{width:6px;height:6px;background:var(--green);border-radius:50%;display:inline-block;}
+    header {
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    header p {
+      color: var(--muted);
+    }
 
-h1{font-family:'Syne',sans-serif;font-size:clamp(42px,8vw,80px);font-weight:800;line-height:1.05;letter-spacing:-.03em;margin-bottom:20px;animation:fadeUp .6s .1s ease both;}
-h1 em{font-style:normal;color:var(--accent2);}
 
-.hero-sub{font-size:clamp(16px,2.5vw,20px);color:var(--text2);max-width:500px;margin:0 auto 36px;animation:fadeUp .6s .2s ease both;line-height:1.6;}
+    .carousel {
+      display: flex;
+      gap: 1.5rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding: 2rem 1.5rem;
+    }
+    .app-card {
+      min-width: 260px;
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+      scroll-snap-align: center;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .app-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 35px rgba(0,0,0,0.08);
+    }
+    .app-icon {
+      font-size: 3rem;
+    }
+    .app-card h3 {
+      margin: 1rem 0 0.5rem;
+    }
 
-.hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;animation:fadeUp .6s .3s ease both;}
-.btn-primary{background:var(--accent);color:#fff;border:none;border-radius:12px;padding:14px 28px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:background .2s,transform .15s;}
-.btn-primary:hover{background:#3C3489;transform:translateY(-2px);}
-.btn-secondary{background:none;color:var(--text2);border:1px solid var(--border);border-radius:12px;padding:14px 24px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:500;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:border-color .2s,color .2s,transform .15s;}
-.btn-secondary:hover{border-color:rgba(255,255,255,0.2);color:var(--text);transform:translateY(-2px);}
 
-.hero-note{margin-top:16px;font-size:13px;color:var(--text2);animation:fadeUp .6s .4s ease both;}
-.hero-note strong{color:var(--green);}
+    .details {
+      max-width: 900px;
+      margin: 3rem auto;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(6px);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    }
+    .details h2 { margin-top: 0; }
+    .details a {
+      display: inline-block;
+      margin-top: 1rem;
+      color: white;
+      background: var(--primary);
+      padding: 0.7rem 1.6rem;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+    .details a:hover {
+      background: #4f46e5;
+    }
 
-/* ── PHONE MOCKUP ── */
-.phone-section{padding:20px 24px 80px;display:flex;justify-content:center;position:relative;z-index:1;}
-.phone-wrap{position:relative;animation:floatPhone 4s ease-in-out infinite;}
-@keyframes floatPhone{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
-.phone{width:220px;background:#141414;border-radius:36px;border:2px solid rgba(255,255,255,0.12);overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,0.6),0 0 0 1px rgba(255,255,255,0.05);}
-.phone-notch{height:28px;background:#0a0a0a;display:flex;align-items:center;justify-content:center;}
-.phone-notch-pill{width:60px;height:6px;background:#1a1a1a;border-radius:3px;}
-.phone-screen{background:#0f0f0f;}
-.phone-step{padding:10px 12px;}
-.phone-step-label{font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#555;margin-bottom:6px;}
-.phone-img-row{display:flex;gap:4px;margin-bottom:8px;}
-.phone-img{flex:1;aspect-ratio:1;border-radius:6px;background:var(--accent);opacity:.7;}
-.phone-img.active{opacity:1;border:1.5px solid var(--accent2);}
-.phone-img-2{flex:1;aspect-ratio:4/5;border-radius:6px;background:linear-gradient(135deg,#534AB7,#1D9E75);}
-.phone-bar{height:3px;background:#1a1a1a;border-radius:2px;margin-bottom:8px;}
-.phone-bar-fill{height:100%;width:66%;background:var(--accent);border-radius:2px;}
-.phone-btn{background:var(--accent);border-radius:8px;padding:7px;text-align:center;font-size:10px;font-weight:600;color:#fff;}
-.phone-glow{position:absolute;bottom:-40px;left:50%;transform:translateX(-50%);width:180px;height:60px;background:radial-gradient(ellipse,rgba(83,74,183,0.4),transparent 70%);filter:blur(10px);}
 
-/* ── FEATURES ── */
-.features{padding:80px 24px;max-width:1000px;margin:0 auto;position:relative;z-index:1;}
-.section-eyebrow{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent2);margin-bottom:12px;text-align:center;}
-.section-title{font-family:'Syne',sans-serif;font-size:clamp(28px,4vw,42px);font-weight:800;letter-spacing:-.02em;text-align:center;margin-bottom:48px;line-height:1.1;}
-
-.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;}
-.feature-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:24px;transition:border-color .2s,transform .2s;}
-.feature-card:hover{border-color:rgba(83,74,183,0.4);transform:translateY(-3px);}
-.feature-icon{font-size:28px;margin-bottom:14px;display:block;}
-.feature-title{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;margin-bottom:8px;letter-spacing:-.01em;}
-.feature-desc{font-size:14px;color:var(--text2);line-height:1.6;}
-
-/* ── HOW IT WORKS ── */
-.how{padding:80px 24px;max-width:700px;margin:0 auto;position:relative;z-index:1;}
-.steps-list{display:flex;flex-direction:column;gap:0;}
-.step-item{display:flex;gap:20px;padding:24px 0;border-bottom:1px solid var(--border);}
-.step-item:last-child{border-bottom:none;}
-.step-num{flex-shrink:0;width:36px;height:36px;border-radius:50%;background:var(--accent-bg,rgba(83,74,183,0.12));border:1px solid rgba(83,74,183,0.3);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:var(--accent2);}
-.step-text h3{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;margin-bottom:4px;letter-spacing:-.01em;}
-.step-text p{font-size:14px;color:var(--text2);}
-
-/* ── PRICING ── */
-.pricing{padding:80px 24px;max-width:600px;margin:0 auto;text-align:center;position:relative;z-index:1;}
-.pricing-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px;}
-.pricing-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:24px;text-align:left;}
-.pricing-card.featured{border-color:var(--accent);background:rgba(83,74,183,0.08);}
-.pricing-label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text2);margin-bottom:12px;display:block;}
-.pricing-card.featured .pricing-label{color:var(--accent2);}
-.pricing-price{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;letter-spacing:-.02em;margin-bottom:4px;}
-.pricing-period{font-size:13px;color:var(--text2);margin-bottom:16px;}
-.pricing-features{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:20px;}
-.pricing-features li{font-size:13px;color:var(--text2);display:flex;align-items:center;gap:7px;}
-.pricing-features li::before{content:'✓';color:var(--green);font-weight:600;flex-shrink:0;}
-.pricing-features li.dim::before{content:'✗';color:#444;}
-.pricing-features li.dim{color:#444;}
-.btn-plan{width:100%;padding:10px;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none;display:block;text-align:center;transition:background .2s,transform .15s;}
-.btn-plan-free{background:none;border:1px solid var(--border);color:var(--text2);}
-.btn-plan-free:hover{border-color:rgba(255,255,255,0.2);color:var(--text);}
-.btn-plan-pro{background:var(--accent);border:none;color:#fff;}
-.btn-plan-pro:hover{background:#3C3489;transform:translateY(-1px);}
-
-/* ── FINAL CTA ── */
-.final-cta{padding:100px 24px;text-align:center;position:relative;z-index:1;}
-.final-cta::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:500px;height:300px;background:radial-gradient(ellipse,rgba(83,74,183,0.1),transparent 70%);pointer-events:none;}
-.final-cta h2{font-family:'Syne',sans-serif;font-size:clamp(32px,5vw,56px);font-weight:800;letter-spacing:-.03em;margin-bottom:16px;line-height:1.1;}
-.final-cta h2 em{font-style:normal;color:var(--accent2);}
-.final-cta p{font-size:18px;color:var(--text2);margin-bottom:36px;max-width:400px;margin-left:auto;margin-right:auto;}
-
-/* ── FOOTER ── */
-footer{border-top:1px solid var(--border);padding:24px;text-align:center;}
-footer p{font-size:13px;color:var(--text2);}
-footer a{color:var(--accent2);text-decoration:none;}
-
-/* ── ANIMATIONS ── */
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:none;}}
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
-.reveal.visible{opacity:1;transform:none;}
-
-/* ── MOBILE ── */
-@media(max-width:600px){
-  .pricing-cards{grid-template-columns:1fr;}
-  .hero-actions{flex-direction:column;align-items:center;}
-  .btn-primary,.btn-secondary{width:100%;max-width:300px;justify-content:center;}
-}
-</style>
+    footer {
+      text-align: center;
+      padding: 2rem 1rem 3rem;
+      color: var(--muted);
+    }
+    footer a { color: inherit; }
+  </style>
 </head>
 <body>
 
-<nav>
-  <a class="nav-logo" href="#">
-    <div class="nav-icon">🎞</div>
-    Carrusel AB
-  </a>
-  <a class="nav-cta" href="https://adrianbruno.github.io/carruselab">Abrir app →</a>
-</nav>
+<header>
+  <h1>Adrian Bruno – Apps</h1>
+  <p>Aplicaciones simples, claras y pensadas para el día a día</p>
+</header>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-content">
-    <div class="hero-badge"><span></span> App gratuita para empezar</div>
-    <h1>Carruseles de<br><em>Instagram</em><br>en segundos</h1>
-    <p class="hero-sub">Dividí una foto en partes perfectas o armá un carrusel con varias fotos. Ajustá el encuadre, elegí el formato y compartí directo.</p>
-    <div class="hero-actions">
-      <a class="btn-primary" href="https://adrianbruno.github.io/carruselab">
-        📲 Abrir Carrusel AB
-      </a>
-      <a class="btn-secondary" href="#como-funciona">
-        Ver cómo funciona ↓
-      </a>
-    </div>
-    <p class="hero-note"><strong>Gratis para probar</strong> — sin registro, sin instalar nada</p>
+<section class="carousel">
+  <div class="app-card" onclick="showDetails('linedance')">
+    <div class="app-icon">🎵</div>
+    <h3>LineDance App</h3>
+    <p>Música y ritmo</p>
+  </div>
+  <div class="app-card" onclick="showDetails('carrusel')">
+    <div class="app-icon">🎠</div>
+    <h3>Carrusel AB</h3>
+    <p>Subi, acomoda y publica, facil</p>
+  </div>
+  <div class="app-card" onclick="showDetails('reloj')">
+    <div class="app-icon">⏳</div>
+    <h3>Reloj de Arena AB</h3>
+    <p>Gestión del tiempo para juegos de mesa</p>
   </div>
 </section>
 
-<!-- PHONE MOCKUP -->
-<div class="phone-section">
-  <div class="phone-wrap">
-    <div class="phone">
-      <div class="phone-notch"><div class="phone-notch-pill"></div></div>
-      <div class="phone-screen">
-        <div style="background:#0f0f0f;padding:8px 10px 4px;display:flex;align-items:center;justify-content:space-between;">
-          <span style="font-size:9px;color:#555;font-weight:600;letter-spacing:.08em;">PASO 1 DE 3</span>
-          <div style="width:60px;height:2px;background:#1a1a1a;border-radius:1px;"><div style="width:33%;height:100%;background:#534AB7;border-radius:1px;"></div></div>
-        </div>
-        <div style="padding:8px 10px;">
-          <div style="font-size:9px;color:#555;font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">Formato</div>
-          <div style="display:flex;gap:4px;margin-bottom:10px;">
-            <div style="flex:1;background:#1a1a1a;border:1px solid #534AB7;border-radius:6px;padding:5px 4px;text-align:center;">
-              <div style="width:8px;height:11px;background:#7F77DD;border-radius:2px;margin:0 auto 3px;"></div>
-              <div style="font-size:7px;color:#7F77DD;font-weight:600;">4:5</div>
-            </div>
-            <div style="flex:1;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:6px;padding:5px 4px;text-align:center;">
-              <div style="width:10px;height:10px;background:#444;border-radius:2px;margin:0 auto 3px;"></div>
-              <div style="font-size:7px;color:#555;">1:1</div>
-            </div>
-            <div style="flex:1;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:6px;padding:5px 4px;text-align:center;">
-              <div style="width:12px;height:6px;background:#444;border-radius:2px;margin:0 auto 3px;"></div>
-              <div style="font-size:7px;color:#555;">16:9</div>
-            </div>
-          </div>
-          <div style="background:#1a1a1a;border:1.5px dashed #2a2a2a;border-radius:8px;padding:14px;text-align:center;margin-bottom:8px;">
-            <div style="font-size:16px;margin-bottom:4px;">✂️</div>
-            <div style="font-size:8px;color:#555;">✓ Foto lista</div>
-            <div style="font-size:7px;color:#534AB7;margin-top:2px;font-weight:600;">Cambiar foto</div>
-          </div>
-          <div style="background:#534AB7;border-radius:8px;padding:7px;text-align:center;font-size:9px;font-weight:600;color:#fff;">Siguiente ›</div>
-        </div>
-      </div>
-    </div>
-    <div class="phone-glow"></div>
-  </div>
-</div>
-
-<!-- FEATURES -->
-<section class="features reveal">
-  <div class="section-eyebrow">Por qué Carrusel AB</div>
-  <h2 class="section-title">Todo lo que necesitás,<br>nada que no necesitás</h2>
-  <div class="features-grid">
-    <div class="feature-card reveal">
-      <span class="feature-icon">✂️</span>
-      <div class="feature-title">Dividí una foto en carrusel</div>
-      <p class="feature-desc">Tomá cualquier foto y cortala en 2, 3 o 4 partes iguales. El efecto panorámico que arrasa en Instagram, sin complicaciones.</p>
-    </div>
-    <div class="feature-card reveal">
-      <span class="feature-icon">🎯</span>
-      <div class="feature-title">Encuadre perfecto</div>
-      <p class="feature-desc">Arrastrá, hacé zoom y elegí exactamente qué parte de la foto queda en cada slide. Nunca más una foto mal recortada.</p>
-    </div>
-    <div class="feature-card reveal">
-      <span class="feature-icon">📐</span>
-      <div class="feature-title">3 formatos oficiales</div>
-      <p class="feature-desc">Vertical 4:5 (recomendado), cuadrado 1:1 y horizontal 1.91:1. Exporta exactamente en los píxeles que Instagram necesita.</p>
-    </div>
-    <div class="feature-card reveal">
-      <span class="feature-icon">📲</span>
-      <div class="feature-title">Compartí directo</div>
-      <p class="feature-desc">En Android podés compartir las fotos directo a Instagram sin descargar nada. Un tap y listo para publicar.</p>
-    </div>
-    <div class="feature-card reveal">
-      <span class="feature-icon">🔒</span>
-      <div class="feature-title">Tu foto no sale del celu</div>
-      <p class="feature-desc">Todo se procesa en tu dispositivo. Ninguna imagen se sube a ningún servidor. Tu privacidad, garantizada.</p>
-    </div>
-    <div class="feature-card reveal">
-      <span class="feature-icon">⚡</span>
-      <div class="feature-title">Instalable como app</div>
-      <p class="feature-desc">Agregala a tu pantalla de inicio y úsala como una app nativa. Sin pasar por ninguna tienda, sin esperar aprobaciones.</p>
-    </div>
-  </div>
-</section>
-
-<!-- HOW IT WORKS -->
-<section class="how reveal" id="como-funciona">
-  <div class="section-eyebrow">Cómo funciona</div>
-  <h2 class="section-title" style="text-align:left;">Tres pasos y listo</h2>
-  <div class="steps-list">
-    <div class="step-item reveal">
-      <div class="step-num">1</div>
-      <div class="step-text">
-        <h3>Elegí el formato y subí tu foto</h3>
-        <p>Seleccioná si querés dividir una sola foto o armar un carrusel con varias. Elegí el formato (vertical es el más recomendado). Subí tu foto — soporta JPG, PNG y HEIC directo de la cámara.</p>
-      </div>
-    </div>
-    <div class="step-item reveal">
-      <div class="step-num">2</div>
-      <div class="step-text">
-        <h3>Ajustá el encuadre</h3>
-        <p>Arrastrá la imagen para posicionarla, usá el zoom para acercar o alejar. Elegí el fondo si querés ver la foto completa. Cada slide se puede encuadrar de forma independiente.</p>
-      </div>
-    </div>
-    <div class="step-item reveal">
-      <div class="step-num">3</div>
-      <div class="step-text">
-        <h3>Descargá o compartí directo</h3>
-        <p>Previsualizás cómo va a quedar en Instagram antes de exportar. Descargás las fotos numeradas en orden, o las compartís directo a Instagram con un tap.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PRICING -->
-<section class="pricing reveal">
-  <div class="section-eyebrow">Planes</div>
-  <h2 class="section-title">Empezá gratis,<br>quedate si te sirve</h2>
-  <div class="pricing-cards">
-    <div class="pricing-card">
-      <span class="pricing-label">Gratis</span>
-      <div class="pricing-price">$0</div>
-      <div class="pricing-period">para siempre</div>
-      <ul class="pricing-features">
-        <li>1 uso completo gratis</li>
-        <li>Todos los formatos</li>
-        <li>Dividir y carrusel múltiple</li>
-        <li class="dim">Usos ilimitados</li>
-        <li class="dim">Sin límites</li>
-      </ul>
-      <a href="https://adrianbruno.github.io/carruselab" class="btn-plan btn-plan-free">Probar gratis</a>
-    </div>
-    <div class="pricing-card featured">
-      <span class="pricing-label">Pro</span>
-      <div class="pricing-price">$1.99</div>
-      <div class="pricing-period">por mes</div>
-      <ul class="pricing-features">
-        <li>Usos ilimitados</li>
-        <li>Todos los formatos</li>
-        <li>Dividir y carrusel múltiple</li>
-        <li>Compartir directo a Instagram</li>
-        <li>Soporte prioritario</li>
-      </ul>
-      <a href="https://adrianbruno.github.io/carruselab" class="btn-plan btn-plan-pro">Empezar Pro</a>
-    </div>
-  </div>
-</section>
-
-<!-- FINAL CTA -->
-<section class="final-cta reveal">
-  <h2>Hacé tu primer<br><em>carrusel ahora</em></h2>
-  <p>Sin registro. Sin instalar nada. Un tap y ya.</p>
-  <a class="btn-primary" href="https://adrianbruno.github.io/carruselab" style="font-size:18px;padding:16px 36px;border-radius:14px;display:inline-flex;">
-    📲 Abrir Carrusel AB
-  </a>
-  <p style="margin-top:16px;font-size:13px;color:var(--text2);">También disponible en Google Play <span style="color:#444;">· próximamente</span></p>
+<section class="details" id="details">
+  <h2>Seleccioná una aplicación</h2>
+  <p>Hacé click en alguna del carrusel para ver más información.</p>
 </section>
 
 <footer>
-  <p>Hecho con ♡ por <a href="https://instagram.com/carruselab">@carruselab</a> · <a href="https://adrianbruno.github.io/carruselab">Abrir app</a></p>
+  <p>
+    📧 <a href="mailto:adrianbruno@gmail.com">adrianbruno@gmail.com</a> ·
+    📷 https://instagram.com/adrianbruno_lp
+  </p>
 </footer>
 
 <script>
-const observer=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');}});
-},{threshold:0.1});
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+  const data = {
+    linedance: {
+      title: 'LineDance App',
+      text: 'Reproductor de música profesional diseñado especialmente para clases y eventos de Line Dance. Mostrá los temas en pantalla, controlá la música y sorprendé a tu audiencia.',
+      link: 'https://adrianbruno.github.io/linedance-app/'
+    },
+    carrusel: {
+      title: 'Carrusel AB',
+      text: 'Dividí una foto en partes perfectas o armá un carrusel con varias fotos. Ajustá el encuadre, elegí el formato y compartí directo.',
+      link: 'carrusel-ab.html'
+    },
+    reloj: {
+      title: 'Reloj de Arena AB',
+      text: 'Herramienta simple para medir el tiempo.',
+      link: 'reloj-arena-ab.html'
+    }
+  };
+
+  function showDetails(key) {
+    const d = data[key];
+    document.getElementById('details').innerHTML = `
+      <h2>${d.title}</h2>
+      <p>${d.text}</p>
+      <a href="${d.link}">Ver página de la app</a>
+    `;
+    document.getElementById('details').scrollIntoView({ behavior: 'smooth' });
+  }
 </script>
+
 </body>
-</html>
