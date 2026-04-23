@@ -156,6 +156,14 @@
 
 <script>
   const cards = document.querySelectorAll('.app-card');
+  
+  cards.forEach((card, i) => {
+    card.addEventListener('click', () => {
+      index = i;
+      updateCarousel();
+      stopCarousel();
+    });
+  });
   let index = 0;
 
   function updateCarousel() {
@@ -171,6 +179,12 @@
   function next() {
     index = (index + 1) % cards.length;
     updateCarousel();
+  }
+
+  let interval = setInterval(next, 2500);
+
+  function stopCarousel() {
+    clearInterval(interval);
   }
 
   setInterval(next, 2500);
