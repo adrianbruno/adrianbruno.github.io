@@ -21,6 +21,20 @@
       --border:     rgba(255,255,255,0.10);
     }
 
+    body.light {
+      --bg-deep:    #f0f2ff;
+      --bg-card:    rgba(255,255,255,0.75);
+      --bg-card-hover: rgba(255,255,255,0.95);
+      --primary:    #5b4de8;
+      --accent:     #0f9e91;
+      --text:       #1a1d2e;
+      --muted:      #5a6080;
+      --border:     rgba(0,0,0,0.10);
+    }
+    body.light { background: var(--bg-deep); }
+    body.light .bubbles-bg li { background: rgba(91,77,232,0.10); border-color: rgba(91,77,232,0.18); }
+    body.light .details { background: rgba(255,255,255,0.85); }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     html { scroll-behavior: smooth; }
@@ -487,19 +501,19 @@
   const data = {
     linedance: {
       title: 'LineDance App',
-      emoji: '💃',
+      icon: 'icons/linedance.png',  
       text: 'Reproductor de música profesional diseñado especialmente para clases y eventos de Line Dance. Controlá el tempo, organizá tu playlist y mantené el ritmo en todo momento.',
       link: 'https://adrianbruno.github.io/linedance-app/'
     },
     carrusel: {
       title: 'Carrusel AB',
-      emoji: '🖼️',
+      icon: 'icons/carrusel.png',  
       text: 'Dividí una foto en partes perfectas o armá un carrusel con varias fotos. Ideal para redes sociales: subí, acomodá y publicá de forma rápida y sencilla.',
       link: 'https://adrianbruno.github.io/carruselab/'
     },
     reloj: {
       title: 'Reloj de Arena AB',
-      emoji: '⏳',
+      icon: 'icons/carrusel.png',
       text: 'Herramienta visual y simple para medir el tiempo. Perfecta para actividades, juegos o simplemente para mantenerte enfocado en lo que importa.',
       link: 'reloj-arena-ab.html'
     }
@@ -508,6 +522,12 @@
   function showDetails(key, cardEl) {
     stopCarousel();
     updateStatus(false);
+
+    // Sincronizar el índice y el highlight con la tarjeta presionada
+    if (cardEl) {
+      const idx = Array.from(cards).indexOf(cardEl);
+      if (idx !== -1) goTo(idx);
+    }
 
     document.querySelectorAll('.app-card').forEach(c => c.classList.remove('selected'));
     if (cardEl) cardEl.classList.add('selected');
@@ -521,7 +541,7 @@
 
     setTimeout(() => {
       detailsEl.innerHTML = `
-        <h2>${d.emoji} ${d.title}</h2>
+        <h2><img src="${d.icon}" style="width:40px;height:40px;object-fit:contain;vertical-align:middle;margin-right:10px;border-radius:10px"> ${d.title}</h2>
         <p>${d.text}</p>
         <a href="${d.link}" class="cta" target="_blank">
           Ver app
@@ -539,7 +559,8 @@
 
   /* ── TEMA ── */
   function toggleTheme() {
-    document.body.classList.toggle('light');
+    const isLight = document.body.classList.toggle('light');
+    document.querySelector('.toggle').textContent = isLight ? '☀️ / 🌙' : '🌙 / ☀️';
   }
 
   /* ── CARRUSEL ── */
