@@ -4,73 +4,178 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Adrian Bruno – Apps</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg1: #f9fafb;
-      --bg2: #eef2ff;
-      --bg3: #f0fdf4;
-      --card: #ffffff;
-      --primary: #6366f1;
-      --text: #1f2937;
-      --muted: #6b7280;
-      --radius: 20px;
+      --bg-deep:    #0d0f1a;
+      --bg-mid:     #141728;
+      --bg-card:    rgba(255,255,255,0.06);
+      --bg-card-hover: rgba(255,255,255,0.10);
+      --primary:    #7c6af7;
+      --primary-glow: rgba(124,106,247,0.35);
+      --accent:     #4fd1c5;
+      --text:       #e8eaf0;
+      --muted:      #8890a8;
+      --radius:     18px;
+      --border:     rgba(255,255,255,0.10);
     }
 
-    body.dark {
-      --bg1: #0f172a;
-      --bg2: #1e293b;
-      --bg3: #020617;
-      --card: #020617;
-      --text: #e5e7eb;
-      --muted: #9ca3af;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
     body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg-deep);
       color: var(--text);
-      background: linear-gradient(120deg, var(--bg1), var(--bg2), var(--bg3));
-      background-size: 400% 400%;
-      animation: bgMove 25s ease infinite;
-      transition: background 0.6s ease, color 0.6s ease;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
 
-    @keyframes bgMove {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    /* ── BURBUJAS ── */
+    .bubbles-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
     }
 
+    .bubbles-bg ul {
+      list-style: none;
+      position: absolute;
+      inset: 0;
+    }
+
+    .bubbles-bg li {
+      position: absolute;
+      display: block;
+      bottom: -160px;
+      background: rgba(124, 106, 247, 0.15);
+      border: 1px solid rgba(124,106,247,0.20);
+      animation: floatUp 25s linear infinite;
+    }
+
+    .bubbles-bg li:nth-child(1)  { left: 8%;  width: 60px;  height: 60px;  animation-delay: 0s;   animation-duration: 22s; border-radius: 40% 60% 55% 45% / 45% 55% 40% 60%; }
+    .bubbles-bg li:nth-child(2)  { left: 18%; width: 16px;  height: 16px;  animation-delay: 2s;   animation-duration: 13s; border-radius: 50%; }
+    .bubbles-bg li:nth-child(3)  { left: 30%; width: 22px;  height: 22px;  animation-delay: 6s;   animation-duration: 18s; border-radius: 50%; background: rgba(79,209,197,0.18); border-color: rgba(79,209,197,0.25); }
+    .bubbles-bg li:nth-child(4)  { left: 42%; width: 55px;  height: 55px;  animation-delay: 0s;   animation-duration: 20s; border-radius: 60% 40% 45% 55%; background: rgba(124,106,247,0.10); }
+    .bubbles-bg li:nth-child(5)  { left: 55%; width: 18px;  height: 18px;  animation-delay: 3s;   animation-duration: 15s; border-radius: 50%; }
+    .bubbles-bg li:nth-child(6)  { left: 65%; width: 90px;  height: 90px;  animation-delay: 1s;   animation-duration: 28s; border-radius: 45% 55% 60% 40% / 50% 50% 45% 55%; background: rgba(79,209,197,0.08); border-color: rgba(79,209,197,0.15); }
+    .bubbles-bg li:nth-child(7)  { left: 72%; width: 130px; height: 130px; animation-delay: 8s;   animation-duration: 35s; border-radius: 55% 45% 40% 60%; background: rgba(124,106,247,0.07); }
+    .bubbles-bg li:nth-child(8)  { left: 48%; width: 22px;  height: 22px;  animation-delay: 16s;  animation-duration: 40s; border-radius: 50%; }
+    .bubbles-bg li:nth-child(9)  { left: 22%; width: 14px;  height: 14px;  animation-delay: 2s;   animation-duration: 32s; border-radius: 50%; background: rgba(79,209,197,0.18); }
+    .bubbles-bg li:nth-child(10) { left: 88%; width: 120px; height: 120px; animation-delay: 0s;   animation-duration: 16s; border-radius: 50% 50% 40% 60% / 45% 60% 50% 50%; background: rgba(124,106,247,0.06); }
+
+    @keyframes floatUp {
+      0%   { transform: translateY(0) rotate(0deg);   opacity: 0.7; }
+      10%  { opacity: 0.9; }
+      90%  { opacity: 0.4; }
+      100% { transform: translateY(-110vh) rotate(720deg); opacity: 0; }
+    }
+
+    /* ── GRID STARS ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background-image:
+        radial-gradient(1px 1px at 15% 20%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 40% 60%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 70% 30%, rgba(255,255,255,0.35) 0%, transparent 100%),
+        radial-gradient(1px 1px at 85% 75%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 55% 85%, rgba(255,255,255,0.25) 0%, transparent 100%),
+        radial-gradient(1px 1px at 25% 50%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 90% 40%, rgba(255,255,255,0.25) 0%, transparent 100%),
+        radial-gradient(1px 1px at 10% 80%, rgba(255,255,255,0.2) 0%, transparent 100%);
+      pointer-events: none;
+    }
+
+    /* ── LAYOUT ── */
+    .page {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── HEADER ── */
     header {
       text-align: center;
-      padding: 3rem 1rem 2rem;
+      padding: 5rem 1rem 3rem;
     }
 
-    header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
-    header p { color: var(--muted); }
+    .header-eyebrow {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(79,209,197,0.3);
+      border-radius: 999px;
+      padding: 0.25rem 0.9rem;
+      margin-bottom: 1.2rem;
+    }
 
+    header h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #fff 0%, #c5beff 60%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+    }
+
+    header p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      font-weight: 300;
+      max-width: 440px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ── THEME TOGGLE ── */
     .toggle {
       position: fixed;
-      top: 1rem;
-      right: 1rem;
-      border: none;
+      top: 1.25rem;
+      right: 1.25rem;
+      z-index: 100;
+      border: 1px solid var(--border);
       border-radius: 999px;
-      padding: 0.4rem 0.9rem;
+      padding: 0.4rem 1rem;
       cursor: pointer;
-      background: var(--card);
+      background: rgba(255,255,255,0.05);
       color: var(--text);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-      font-size: 0.9rem;
+      backdrop-filter: blur(12px);
+      font-size: 0.85rem;
+      font-family: 'DM Sans', sans-serif;
+      transition: background 0.2s, border-color 0.2s;
     }
+    .toggle:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.2); }
 
-    /* CARRUSEL */
+    /* ── STATUS DEL CARRUSEL ── */
+    .carousel-status {
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+      min-height: 1.2em;
+      transition: color 0.3s;
+    }
+    .carousel-status.paused { color: var(--accent); }
+
+    /* ── CARRUSEL ── */
     .carousel-wrapper {
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 1rem;
     }
 
     .carousel {
@@ -79,176 +184,419 @@
       overflow-x: auto;
       scroll-snap-type: x mandatory;
       scroll-behavior: smooth;
-      padding: 2rem 0;
-      max-width: 1000px;
-      scroll-padding: 0 calc(50% - 130px);
+      padding: 2rem 3rem;
+      max-width: 920px;
+      width: 100%;
     }
 
     .carousel::-webkit-scrollbar { display: none; }
 
+    /* ── APP CARD ── */
     .app-card {
-      min-width: 260px;
-      max-width: 260px;
-      background: var(--card);
+      min-width: 240px;
+      max-width: 240px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 1.5rem;
+      padding: 2rem 1.5rem;
       text-align: center;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
       scroll-snap-align: center;
       cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
-      opacity: 0.5;
-      transform: scale(0.9);
+      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1),
+                  box-shadow 0.35s ease,
+                  opacity 0.35s ease,
+                  background 0.3s ease,
+                  border-color 0.3s ease;
+      opacity: 0.45;
+      transform: scale(0.88);
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
     }
+
+    .app-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(124,106,247,0.08) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .app-card:hover::before { opacity: 1; }
 
     .app-card.active {
       opacity: 1;
-      transform: scale(1);
+      transform: scale(1.02);
+      border-color: rgba(124,106,247,0.45);
+      box-shadow: 0 0 0 1px rgba(124,106,247,0.2), 0 20px 60px rgba(124,106,247,0.18);
     }
 
     .app-card:hover {
-      transform: scale(1.04) translateY(-6px);
-      box-shadow: 0 25px 45px rgba(0,0,0,0.15);
+      transform: scale(1.06) translateY(-8px);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(124,106,247,0.3);
+      background: var(--bg-card-hover);
+    }
+
+    .app-card.selected {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(79,209,197,0.3), 0 20px 60px rgba(79,209,197,0.15);
     }
 
     .app-icon {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      font-size: 3rem;
       margin-bottom: 1rem;
-      transition: transform 0.3s ease;
+      display: block;
+      transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
     }
 
-    .app-card:hover .app-icon { transform: scale(1.1); }
+    .app-card:hover .app-icon { transform: scale(1.15) rotate(-5deg); }
 
     .app-icon img {
       width: 64px;
       height: 64px;
       object-fit: contain;
+      border-radius: 14px;
+    }
+
+    .app-card h3 {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 0.35rem;
+    }
+
+    .app-card p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-weight: 300;
+      line-height: 1.5;
+    }
+
+    .card-badge {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: rgba(124,106,247,0.18);
+      color: #b8b0ff;
+      border-radius: 999px;
+      padding: 0.18rem 0.6rem;
+      margin-top: 0.6rem;
+      border: 1px solid rgba(124,106,247,0.25);
+    }
+
+    /* ── DOTS ── */
+    .carousel-dots {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      margin-top: 0.5rem;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--muted);
+      opacity: 0.4;
+      transition: opacity 0.3s, background 0.3s, width 0.3s;
+      cursor: pointer;
+    }
+    .dot.active {
+      background: var(--primary);
+      opacity: 1;
+      width: 20px;
+      border-radius: 3px;
+    }
+
+    /* ── DETALLES ── */
+    .details-wrap {
+      max-width: 860px;
+      margin: 3.5rem auto 2rem;
+      padding: 0 1.5rem;
     }
 
     .details {
-      max-width: 900px;
-      margin: 3rem auto;
-      background: rgba(255,255,255,0.88);
-      backdrop-filter: blur(6px);
-      border-radius: var(--radius);
-      padding: 2.5rem;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-      transition: background 0.6s ease;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 2.5rem 2.8rem;
+      backdrop-filter: blur(16px);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
     }
 
-    body.dark .details { background: rgba(15,23,42,0.85); }
+    .details::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
 
+    .details.populated::after { opacity: 1; }
+
+    .details h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.9rem;
+      font-weight: 400;
+      margin-bottom: 0.8rem;
+      color: var(--text);
+    }
+
+    .details p {
+      color: var(--muted);
+      line-height: 1.7;
+      font-weight: 300;
+      max-width: 560px;
+    }
+
+    .details a.cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+      background: linear-gradient(135deg, var(--primary), #5a4fd4);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 12px;
+      padding: 0.7rem 1.5rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 8px 25px rgba(124,106,247,0.35);
+    }
+    .details a.cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 35px rgba(124,106,247,0.5);
+    }
+    .details a.cta svg {
+      width: 16px; height: 16px;
+      transition: transform 0.2s;
+    }
+    .details a.cta:hover svg { transform: translate(2px, -2px); }
+
+    /* ── FOOTER ── */
     footer {
       text-align: center;
-      padding: 2rem 1rem 3rem;
+      padding: 3rem 1rem 4rem;
       color: var(--muted);
+      font-size: 0.85rem;
     }
 
-    footer a { color: inherit; }
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    footer a:hover { text-decoration: underline; }
+
+    .footer-divider {
+      width: 40px;
+      height: 1px;
+      background: var(--border);
+      margin: 0 auto 2rem;
+    }
+
+    /* ── ANIMACIÓN ENTRADA ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    header { animation: fadeUp 0.8s ease both; }
+    .carousel-wrapper { animation: fadeUp 0.8s 0.15s ease both; }
+    .details-wrap { animation: fadeUp 0.8s 0.25s ease both; }
+    footer { animation: fadeUp 0.8s 0.35s ease both; }
   </style>
 </head>
 <body>
 
-<button class="toggle" onclick="toggleTheme()">🌙 / ☀️</button>
-
-<header>
-  <h1>Adrian Bruno – Apps</h1>
-  <p>Aplicaciones simples, claras y pensadas para el día a día</p>
-</header>
-
-<div class="carousel-wrapper">
-  <section class="carousel" id="carousel">
-    <div class="app-card active" onclick="showDetails('linedance')">
-      <div class="app-icon"><img src="icons/linedance.png" alt="LineDance App"></div>
-      <h3>LineDance App</h3>
-      <p>Música y ritmo</p>
-    </div>
-    <div class="app-card" onclick="showDetails('carrusel')">
-      <div class="app-icon"><img src="icons/carrusel.png" alt="Carrusel AB"></div>
-      <h3>Carrusel AB</h3>
-      <p>Subí, acomodá y publicá fácil</p>
-    </div>
-    <div class="app-card" onclick="showDetails('reloj')">
-      <div class="app-icon">⏳</div>
-      <h3>Reloj de Arena AB</h3>
-      <p>Gestión del tiempo</p>
-    </div>
-  </section>
+<!-- FONDO ANIMADO -->
+<div class="bubbles-bg">
+  <ul>
+    <li></li><li></li><li></li><li></li><li></li>
+    <li></li><li></li><li></li><li></li><li></li>
+  </ul>
 </div>
 
-<section class="details" id="details">
-  <h2>Seleccioná una aplicación</h2>
-  <p>Hacé click en alguna del carrusel para ver más información.</p>
-</section>
+<button class="toggle" onclick="toggleTheme()" title="Cambiar tema">🌙 / ☀️</button>
 
-<footer>
-  <p>📧 <a href="mailto:adrianbruno@gmail.com">adrianbruno@gmail.com</a> · 📷 https://instagram.com/adrianbruno_lp</p>
-</footer>
+<div class="page">
+
+  <header>
+    <span class="header-eyebrow">Desarrollador independiente</span>
+    <h1>Adrian Bruno</h1>
+    <p>Aplicaciones simples, claras y pensadas para el día a día.</p>
+  </header>
+
+  <div class="carousel-wrapper">
+    <div class="carousel-status" id="carouselStatus">Rotación automática activa</div>
+
+    <section class="carousel" id="carousel">
+      <div class="app-card active" onclick="showDetails('linedance', this)">
+        <span class="app-icon">💃</span>
+        <h3>LineDance App</h3>
+        <p>Música y ritmo</p>
+        <span class="card-badge">Música</span>
+      </div>
+      <div class="app-card" onclick="showDetails('carrusel', this)">
+        <span class="app-icon">🖼️</span>
+        <h3>Carrusel AB</h3>
+        <p>Subí, acomodá y publicá fácil</p>
+        <span class="card-badge">Fotos</span>
+      </div>
+      <div class="app-card" onclick="showDetails('reloj', this)">
+        <span class="app-icon">⏳</span>
+        <h3>Reloj de Arena AB</h3>
+        <p>Gestión del tiempo</p>
+        <span class="card-badge">Productividad</span>
+      </div>
+    </section>
+
+    <div class="carousel-dots" id="dots">
+      <span class="dot active" onclick="goTo(0)"></span>
+      <span class="dot" onclick="goTo(1)"></span>
+      <span class="dot" onclick="goTo(2)"></span>
+    </div>
+  </div>
+
+  <div class="details-wrap">
+    <section class="details" id="details">
+      <h2>¿Qué querés explorar?</h2>
+      <p>Hacé click en alguna app del carrusel para ver más información sobre ella.</p>
+    </section>
+  </div>
+
+  <footer>
+    <div class="footer-divider"></div>
+    <p>
+      📧 <a href="mailto:adrianbruno@gmail.com">adrianbruno@gmail.com</a>
+      &nbsp;·&nbsp;
+      📷 <a href="https://instagram.com/adrianbruno_lp" target="_blank">@adrianbruno_lp</a>
+    </p>
+  </footer>
+
+</div>
 
 <script>
   const data = {
     linedance: {
       title: 'LineDance App',
-      text: 'Reproductor de música profesional diseñado especialmente para clases y eventos de Line Dance.',
+      emoji: '💃',
+      text: 'Reproductor de música profesional diseñado especialmente para clases y eventos de Line Dance. Controlá el tempo, organizá tu playlist y mantené el ritmo en todo momento.',
       link: 'https://adrianbruno.github.io/linedance-app/'
     },
     carrusel: {
       title: 'Carrusel AB',
-      text: 'Dividí una foto en partes perfectas o armá un carrusel con varias fotos.',
+      emoji: '🖼️',
+      text: 'Dividí una foto en partes perfectas o armá un carrusel con varias fotos. Ideal para redes sociales: subí, acomodá y publicá de forma rápida y sencilla.',
       link: 'https://adrianbruno.github.io/carruselab/'
     },
     reloj: {
       title: 'Reloj de Arena AB',
-      text: 'Herramienta simple para medir el tiempo.',
+      emoji: '⏳',
+      text: 'Herramienta visual y simple para medir el tiempo. Perfecta para actividades, juegos o simplemente para mantenerte enfocado en lo que importa.',
       link: 'reloj-arena-ab.html'
     }
   };
 
-  function showDetails(key) {
+  function showDetails(key, cardEl) {
+    stopCarousel();
+    updateStatus(false);
+
+    document.querySelectorAll('.app-card').forEach(c => c.classList.remove('selected'));
+    if (cardEl) cardEl.classList.add('selected');
+
     const d = data[key];
-    document.getElementById('details').innerHTML = `
-      <h2>${d.title}</h2>
-      <p>${d.text}</p>
-      <a href="${d.link}">Ver página de la app</a>
-    `;
-    document.getElementById('details').scrollIntoView({ behavior: 'smooth' });
+    const detailsEl = document.getElementById('details');
+    detailsEl.classList.add('populated');
+
+    detailsEl.style.opacity = '0';
+    detailsEl.style.transform = 'translateY(12px)';
+
+    setTimeout(() => {
+      detailsEl.innerHTML = `
+        <h2>${d.emoji} ${d.title}</h2>
+        <p>${d.text}</p>
+        <a href="${d.link}" class="cta" target="_blank">
+          Ver app
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 17L17 7M17 7H7M17 7v10"/>
+          </svg>
+        </a>
+      `;
+      detailsEl.style.opacity = '1';
+      detailsEl.style.transform = 'translateY(0)';
+      detailsEl.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+      detailsEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 120);
   }
 
+  /* ── TEMA ── */
   function toggleTheme() {
-    document.body.classList.toggle('dark');
+    document.body.classList.toggle('light');
   }
 
+  /* ── CARRUSEL ── */
   const carousel = document.getElementById('carousel');
   const cards = carousel.querySelectorAll('.app-card');
-  let index = 0;
-  let interval;
+  const dots = document.querySelectorAll('.dot');
+  let currentIndex = 0;
+  let interval = null;
+  let isPaused = false;
 
-  function goTo(indexToGo) {
+  function updateDots(i) {
+    dots.forEach((d, idx) => d.classList.toggle('active', idx === i));
+  }
+
+  function updateStatus(running) {
+    const el = document.getElementById('carouselStatus');
+    if (running) {
+      el.textContent = 'Rotación automática activa';
+      el.classList.remove('paused');
+    } else {
+      el.textContent = 'Rotación pausada — seleccionaste una app';
+      el.classList.add('paused');
+    }
+  }
+
+  function goTo(i) {
     cards.forEach(c => c.classList.remove('active'));
-    cards[indexToGo].classList.add('active');
-
-    cards[indexToGo].scrollIntoView({
-      behavior: 'smooth',
-      inline: 'center'
-    });
+    cards[i].classList.add('active');
+    cards[i].scrollIntoView({ behavior: 'smooth', inline: 'center' });
+    updateDots(i);
+    currentIndex = i;
   }
 
   function startCarousel() {
+    if (interval) return;
+    isPaused = false;
+    updateStatus(true);
     interval = setInterval(() => {
-      index = (index + 1) % cards.length;
-      goTo(index);
-    }, 2500);
+      currentIndex = (currentIndex + 1) % cards.length;
+      goTo(currentIndex);
+    }, 2800);
   }
 
   function stopCarousel() {
     clearInterval(interval);
+    interval = null;
+    isPaused = true;
   }
 
   startCarousel();
-  carousel.addEventListener('mouseenter', stopCarousel);
-  carousel.addEventListener('mouseleave', startCarousel);
+
+  carousel.addEventListener('mouseenter', () => {
+    if (!isPaused) stopCarousel();
+  });
+  carousel.addEventListener('mouseleave', () => {
+    if (!isPaused) startCarousel();
+  });
 </script>
 
 </body>
