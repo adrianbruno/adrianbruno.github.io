@@ -18,6 +18,15 @@
       --radius: 20px;
     }
 
+    body.dark {
+      --bg1: #0f172a;
+      --bg2: #1e293b;
+      --bg3: #020617;
+      --card: #020617;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+    }
+
     * { box-sizing: border-box; }
 
     body {
@@ -26,7 +35,8 @@
       color: var(--text);
       background: linear-gradient(120deg, var(--bg1), var(--bg2), var(--bg3));
       background-size: 400% 400%;
-      animation: bgMove 5s linear infinite; /* luego podés volver a 25s */
+      animation: bgMove 25s ease infinite;
+      transition: background 0.6s ease, color 0.6s ease;
     }
 
     @keyframes bgMove {
@@ -40,13 +50,21 @@
       padding: 3rem 1rem 2rem;
     }
 
-    header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-    }
+    header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    header p { color: var(--muted); }
 
-    header p {
-      color: var(--muted);
+    .toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      border: none;
+      border-radius: 999px;
+      padding: 0.4rem 0.9rem;
+      cursor: pointer;
+      background: var(--card);
+      color: var(--text);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+      font-size: 0.9rem;
     }
 
     .carousel {
@@ -55,7 +73,10 @@
       overflow-x: auto;
       scroll-snap-type: x mandatory;
       padding: 2rem 1.5rem;
+      scroll-behavior: smooth;
     }
+
+    .carousel::-webkit-scrollbar { display: none; }
 
     .app-card {
       min-width: 260px;
@@ -70,17 +91,19 @@
     }
 
     .app-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 18px 35px rgba(0,0,0,0.08);
+      transform: scale(1.04) translateY(-6px);
+      box-shadow: 0 25px 45px rgba(0,0,0,0.15);
     }
 
-    /* ICONOS PERFECTAMENTE CENTRADOS */
     .app-icon {
       display: flex;
       justify-content: center;
       align-items: center;
       margin-bottom: 1rem;
+      transition: transform 0.3s ease;
     }
+
+    .app-card:hover .app-icon { transform: scale(1.1); }
 
     .app-icon img {
       width: 64px;
@@ -88,19 +111,20 @@
       object-fit: contain;
     }
 
-    .app-card h3 {
-      margin: 1rem 0 0.5rem;
-    }
+    .app-card h3 { margin: 1rem 0 0.5rem; }
 
     .details {
       max-width: 900px;
       margin: 3rem auto;
-      background: rgba(255,255,255,0.9);
+      background: rgba(255,255,255,0.88);
       backdrop-filter: blur(6px);
       border-radius: var(--radius);
       padding: 2.5rem;
       box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      transition: background 0.6s ease;
     }
+
+    body.dark .details { background: rgba(15,23,42,0.85); }
 
     .details h2 { margin-top: 0; }
 
@@ -112,10 +136,7 @@
       padding: 0.7rem 1.6rem;
       border-radius: 999px;
       text-decoration: none;
-      transition: background 0.3s ease;
     }
-
-    .details a:hover { background: #4f46e5; }
 
     footer {
       text-align: center;
@@ -124,37 +145,32 @@
     }
 
     footer a { color: inherit; }
-
   </style>
 </head>
 <body>
+
+<button class="toggle" onclick="toggleTheme()">🌙 / ☀️</button>
 
 <header>
   <h1>Adrian Bruno – Apps</h1>
   <p>Aplicaciones simples, claras y pensadas para el día a día</p>
 </header>
 
-<section class="carousel">
+<section class="carousel" id="carousel">
   <div class="app-card" onclick="showDetails('linedance')">
-    <div class="app-icon">
-      <img src="icons/linedance.png" alt="LineDance App">
-    </div>
+    <div class="app-icon"><img src="icons/linedance.png" alt="LineDance App"></div>
     <h3>LineDance App</h3>
     <p>Música y ritmo</p>
   </div>
 
   <div class="app-card" onclick="showDetails('carrusel')">
-    <div class="app-icon">
-      <img src="icons/carrusel.png" alt="Carrusel AB">
-    </div>
+    <div class="app-icon"><img src="icons/carrusel.png" alt="Carrusel AB"></div>
     <h3>Carrusel AB</h3>
     <p>Subí, acomodá y publicá fácil</p>
   </div>
 
   <div class="app-card" onclick="showDetails('reloj')">
-    <div class="app-icon">
-      <span style="font-size: 2.5rem;">⏳</span>
-    </div>
+    <div class="app-icon"><span style="font-size:2.5rem">⏳</span></div>
     <h3>Reloj de Arena AB</h3>
     <p>Gestión del tiempo para juegos de mesa</p>
   </div>
@@ -176,12 +192,12 @@
   const data = {
     linedance: {
       title: 'LineDance App',
-      text: 'Reproductor de música profesional diseñado especialmente para clases y eventos de Line Dance. Mostrá los temas en pantalla, controlá la música y sorprendé a tu audiencia.',
+      text: 'Reproductor de música profesional diseñado especialmente para clases y eventos de Line Dance.',
       link: 'https://adrianbruno.github.io/linedance-app/'
     },
     carrusel: {
       title: 'Carrusel AB',
-      text: 'Dividí una foto en partes perfectas o armá un carrusel con varias fotos. Ajustá el encuadre, elegí el formato y compartí directo.',
+      text: 'Dividí una foto en partes perfectas o armá un carrusel con varias fotos.',
       link: 'carrusel-ab.html'
     },
     reloj: {
@@ -200,6 +216,19 @@
     `;
     document.getElementById('details').scrollIntoView({ behavior: 'smooth' });
   }
+
+  function toggleTheme() {
+    document.body.classList.toggle('dark');
+  }
+
+  const carousel = document.getElementById('carousel');
+  let scrollAmount = 0;
+  setInterval(() => {
+    const max = carousel.scrollWidth - carousel.clientWidth;
+    scrollAmount += 1;
+    if (scrollAmount >= max) scrollAmount = 0;
+    carousel.scrollTo({ left: scrollAmount, behavior: 'smooth' });
+  }, 40);
 </script>
 
 </body>
