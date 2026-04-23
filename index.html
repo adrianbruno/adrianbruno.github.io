@@ -67,19 +67,27 @@
       font-size: 0.9rem;
     }
 
+    /* CARRUSEL */
+    .carousel-wrapper {
+      display: flex;
+      justify-content: center;
+    }
+
     .carousel {
       display: flex;
       gap: 1.5rem;
       overflow-x: auto;
       scroll-snap-type: x mandatory;
-      padding: 2rem 1.5rem;
       scroll-behavior: smooth;
+      padding: 2rem 0;
+      max-width: 1000px;
     }
 
     .carousel::-webkit-scrollbar { display: none; }
 
     .app-card {
       min-width: 260px;
+      max-width: 260px;
       background: var(--card);
       border-radius: var(--radius);
       padding: 1.5rem;
@@ -111,8 +119,6 @@
       object-fit: contain;
     }
 
-    .app-card h3 { margin: 1rem 0 0.5rem; }
-
     .details {
       max-width: 900px;
       margin: 3rem auto;
@@ -125,18 +131,6 @@
     }
 
     body.dark .details { background: rgba(15,23,42,0.85); }
-
-    .details h2 { margin-top: 0; }
-
-    .details a {
-      display: inline-block;
-      margin-top: 1rem;
-      color: white;
-      background: var(--primary);
-      padding: 0.7rem 1.6rem;
-      border-radius: 999px;
-      text-decoration: none;
-    }
 
     footer {
       text-align: center;
@@ -156,25 +150,25 @@
   <p>Aplicaciones simples, claras y pensadas para el día a día</p>
 </header>
 
-<section class="carousel" id="carousel">
-  <div class="app-card" onclick="showDetails('linedance')">
-    <div class="app-icon"><img src="icons/linedance.png" alt="LineDance App"></div>
-    <h3>LineDance App</h3>
-    <p>Música y ritmo</p>
-  </div>
-
-  <div class="app-card" onclick="showDetails('carrusel')">
-    <div class="app-icon"><img src="icons/carrusel.png" alt="Carrusel AB"></div>
-    <h3>Carrusel AB</h3>
-    <p>Subí, acomodá y publicá fácil</p>
-  </div>
-
-  <div class="app-card" onclick="showDetails('reloj')">
-    <div class="app-icon"><span style="font-size:2.5rem">⏳</span></div>
-    <h3>Reloj de Arena AB</h3>
-    <p>Gestión del tiempo para juegos de mesa</p>
-  </div>
-</section>
+<div class="carousel-wrapper">
+  <section class="carousel" id="carousel">
+    <div class="app-card" onclick="showDetails('linedance')">
+      <div class="app-icon"><img src="icons/linedance.png" alt="LineDance App"></div>
+      <h3>LineDance App</h3>
+      <p>Música y ritmo</p>
+    </div>
+    <div class="app-card" onclick="showDetails('carrusel')">
+      <div class="app-icon"><img src="icons/carrusel.png" alt="Carrusel AB"></div>
+      <h3>Carrusel AB</h3>
+      <p>Subí, acomodá y publicá fácil</p>
+    </div>
+    <div class="app-card" onclick="showDetails('reloj')">
+      <div class="app-icon">⏳</div>
+      <h3>Reloj de Arena AB</h3>
+      <p>Gestión del tiempo</p>
+    </div>
+  </section>
+</div>
 
 <section class="details" id="details">
   <h2>Seleccioná una aplicación</h2>
@@ -182,10 +176,7 @@
 </section>
 
 <footer>
-  <p>
-    📧 <a href="mailto:adrianbruno@gmail.com">adrianbruno@gmail.com</a> ·
-    📷 https://instagram.com/adrianbruno_lp
-  </p>
+  <p>📧 <a href="mailto:adrianbruno@gmail.com">adrianbruno@gmail.com</a> · 📷 https://instagram.com/adrianbruno_lp</p>
 </footer>
 
 <script>
@@ -221,14 +212,30 @@
     document.body.classList.toggle('dark');
   }
 
+  // CARRUSEL 1 A 1
   const carousel = document.getElementById('carousel');
-  let scrollAmount = 0;
-  setInterval(() => {
-    const max = carousel.scrollWidth - carousel.clientWidth;
-    scrollAmount += 1;
-    if (scrollAmount >= max) scrollAmount = 0;
-    carousel.scrollTo({ left: scrollAmount, behavior: 'smooth' });
-  }, 40);
+  const cards = carousel.querySelectorAll('.app-card');
+  let index = 0;
+  let interval;
+
+  function goTo(indexToGo) {
+    cards[indexToGo].scrollIntoView({ behavior: 'smooth', inline: 'center' });
+  }
+
+  function startCarousel() {
+    interval = setInterval(() => {
+      index = (index + 1) % cards.length;
+      goTo(index);
+    }, 3500);
+  }
+
+  function stopCarousel() {
+    clearInterval(interval);
+  }
+
+  startCarousel();
+  carousel.addEventListener('mouseenter', stopCarousel);
+  carousel.addEventListener('mouseleave', startCarousel);
 </script>
 
 </body>
